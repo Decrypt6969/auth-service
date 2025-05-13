@@ -1,4 +1,15 @@
 services:
+  auth:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    networks:
+      - auth-net
+
   postgres:
     image: postgres:15
     restart: always
@@ -10,12 +21,20 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - auth-net
 
   redis:
     image: redis:7
     restart: always
     ports:
       - '6379:6379'
+    networks:
+      - auth-net
 
 volumes:
   postgres_data:
+
+networks:
+  auth-net:
+    driver: bridge

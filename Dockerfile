@@ -1,4 +1,4 @@
-FROM golang:1.22 AS builder
+FROM golang:1.23 AS builder
 
 WORKDIR /app
 
@@ -11,9 +11,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./cmd/server
 FROM debian:bullseye-slim
 
 WORKDIR /app
-
 COPY --from=builder /app/main .
 
 EXPOSE 8080
-
 CMD ["./main"]
