@@ -1,0 +1,16 @@
+  /main
+*.exe
+*.out
+*.test
+
+vendor/
+
+.vscode/
+.idea/
+
+docker-compose.override.yml
+
+.env
+.env.*
+
+postgres_data/
